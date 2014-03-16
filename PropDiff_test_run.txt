@@ -1,0 +1,42 @@
+$ cat p1.properties
+nameOnlyIn_1=valueOnlyIn_1
+nameCommon=valueCommonToBoth
+nameCommonValuesDiffer=value1
+$
+$ cat p2.properties
+nameOnlyIn_2=valueOnlyIn_2
+nameCommon=valueCommonToBoth
+nameCommonValuesDiffer=value2
+$
+$ javac -classpath . PropDiff.java
+$
+$ java -classpath .  PropDiff p1.properties p2.properties -f - 
+#Results go to console (stdout)
+# intersection showing values that are equal for p1.properties  and  p2.properties
+#Fri Sep 06 15:22:54 PDT 2002
+nameCommon=valueCommonToBoth
+
+# intersection showing properties in p2.properties that override property values in p1.properties
+#Fri Sep 06 15:22:54 PDT 2002
+nameCommonValuesDiffer=value2
+
+# intersection of p1.properties  and  p2.properties where the latter takes precedence if values differ.
+#Fri Sep 06 15:22:54 PDT 2002
+nameCommon=valueCommonToBoth
+nameCommonValuesDiffer=value2
+
+# properties in p2.properties that are not present in p1.properties
+#Fri Sep 06 15:22:54 PDT 2002
+nameOnlyIn_2=valueOnlyIn_2
+
+# properties in p1.properties that are not present in p2.properties
+#Fri Sep 06 15:22:54 PDT 2002
+nameOnlyIn_1=valueOnlyIn_1
+
+# union of p1.properties and p2.properties where the latter has precedence if values differ
+#Fri Sep 06 15:22:54 PDT 2002
+nameOnlyIn_2=valueOnlyIn_2
+nameOnlyIn_1=valueOnlyIn_1
+nameCommon=valueCommonToBoth
+nameCommonValuesDiffer=value2
+
